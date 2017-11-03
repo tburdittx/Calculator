@@ -4,33 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Calc4;
+using NLog;
+using NLog.Fluent;
 
 namespace Calculator2
 {
     class Program
     {
-
-       
         static void Main(string[] args)
         {
-            //PrintWelcomeMessage printwelcomemessage = new PrintWelcomeMessage();
+            var logger = new Logger2();
+
             PrintWelcomeMessage.PrintWelcomeMessage1();
-                      
+            logger.Logger4();
+            for (; ; )
 
-
-            AskForCalculationMode askForCalculationMode = new AskForCalculationMode();
-            askForCalculationMode.AskForCalculationMode2();
-
-
-            //Code above works
-            //Need to do try/catch method for num/date calc
-            //Create an instance of class and then use that to refer to the class methods
-            //Classes need constructors!!
-
-           
-
+            {
+                AskForCalculationMode askForCalculationMode = new AskForCalculationMode();
+                askForCalculationMode.AskForCalculationMode2();
+            }
             Console.ReadLine();
-        }   
+        }
     }
 }
 

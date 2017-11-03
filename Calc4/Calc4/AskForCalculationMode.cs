@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Calculator2;
+using NLog;
 
 namespace Calc4
 {
     class AskForCalculationMode
-
     {
         private const int NumberCalculator = 1;
         private const int DateCalculator = 2;
-
-     //   public int Numbergiven { get; private set; }
 
         private void AskForCalculationMode1()
         {
@@ -21,36 +19,34 @@ namespace Calc4
             Program NumberCalculator = new Program();
             Program AskForNumber = new Program();
             AskForNumber askForNumber = new AskForNumber();
+            var LogCalculator = new Logger2();
+            var LogDateCalculator = new Logger2();
 
-            //Fix number display in the console window
             Console.WriteLine("Which calculator mode do you want?");
-            Console.WriteLine(" {0}) Numbers", NumberCalculator);
-            Console.WriteLine(" {0}) Dates", DateCalculator);
+            Console.WriteLine("Press 1 for Numbers");
+            Console.WriteLine("Press 2 for Dates");
 
             string message1 = "Please enter a number";
             Console.WriteLine(message1);
             int numbergiven = new int();
             numbergiven = int.Parse(Console.ReadLine());
-           // return numbergiven;
 
             if (numbergiven == 1)
             {
-                NumberCalculator numberCalculator = new NumberCalculator();
-                numberCalculator.NumberCalculator2();
+                new NumberCalculator(LogCalculator).NumberCalculator2();
             }
             else if (numbergiven == 2)
             {
-                DateCalculator dateCalculator = new DateCalculator();
-                dateCalculator.AnswerDate1();
+                new DateCalculator(LogCalculator).AnswerDate1();
             }
         }
         public void AskForCalculationMode2()
         {
             AskForCalculationMode1();
-            
-        }
-        
 
-       
+        }
+
+
+
     }
 }
