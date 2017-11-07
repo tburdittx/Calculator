@@ -33,12 +33,13 @@ namespace Calc4
 
             if (numbergiven == 1)
             {
-                new NumberCalculator(LogCalculator).NumberCalculator2();
+                new NumberCalculator(LogCalculator).ListOfNumbers5();
             }
             else if (numbergiven == 2)
             {
                 new DateCalculator(LogCalculator).AnswerDate1();
             }
+
         }
         public void AskForCalculationMode2()
         {

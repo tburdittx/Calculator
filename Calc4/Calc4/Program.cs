@@ -23,7 +23,7 @@ namespace Calculator2
                 AskForCalculationMode askForCalculationMode = new AskForCalculationMode();
                 askForCalculationMode.AskForCalculationMode2();
             }
-            Console.ReadLine();
+
         }
     }
 }

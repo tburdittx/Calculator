@@ -5,11 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using NLog;
 using Calc4;
+using System.Collections;
 
 namespace Calc4
 {
     public class NumberCalculator
     {
+        private Logger2 logCalculator;
+
+
+        /*
         private Logger2 logger;
         private Action<int, int, string> logCalculation;
 
@@ -22,58 +27,63 @@ namespace Calc4
         {
             this.logCalculation = logCalculation;
         }
+*/
+        public NumberCalculator(Logger2 logCalculator)
+        {
+            this.logCalculator = logCalculator;
+        }
 
-        public int answer { get; private set; }
-        public int UserInputOfHowMany { get; set; }
-        public string operation { get; set; }
-
-        private int PerformACalculation()
+        public void ListOfNumbers5()
         {
             Console.WriteLine("Enter your operator");
             string operation = Console.ReadLine();
+            List<int> numbersInput = new List<int>();
 
-            Console.WriteLine("How many numbers do you want to " + operation);
-            int UserInputOfHowMany = int.Parse(Console.ReadLine());
+            Console.WriteLine("Please enter your number");
+            string input = Console.ReadLine();
+            numbersInput.Add(int.Parse(input));
 
-            int[] numbers = new int[UserInputOfHowMany];
-            for (int i = 0; i < UserInputOfHowMany; i++)
+            while (input != "")
             {
-                Console.WriteLine("Please enter number " + (i + 1) + ": ");
-                numbers[i] = int.Parse(Console.ReadLine());
+                Console.WriteLine("Please enter your next number: ");
+                input = Console.ReadLine();
+                int value;
+                if (!int.TryParse(input, out value))
+                {
+                    //error
+                }
+                else
+                {
+                    numbersInput.Add(value);
+                }
             }
+
             int answer = 0;
 
-            for (int i = 0; i < UserInputOfHowMany; i++)
+            if (operation == "*")
             {
-                if (operation == "+")
-                {
-                    answer = answer + numbers[i];
-                }
-
-                if (operation == "*")
-                {
-                    answer = answer * numbers[i];
-                }
-
-                if (operation == "-")
-                {
-                    answer = answer - numbers[i];
-                }
-
-                if (operation == "/")
-                {
-                    answer = answer / numbers[i];
-                }
-
-                Logger2.LogCalculation(answer, numbers[i], operation);
+                answer = numbersInput.Aggregate(1, (acc, number) => acc *number);
             }
+            else if (operation == "/")
+            {
+                answer = numbersInput.Skip(1).Aggregate(numbersInput[0], (acc, number) => acc / number);
+            }
+            else if (operation == "+")
+            {
+                answer = numbersInput.Sum();
+            }
+
+            else if (operation == "-")
+            {
+                answer = numbersInput.Skip(1).Aggregate(numbersInput[0], (acc, number) => acc - number);
+            }
+
             Console.WriteLine(answer);
-            return answer;
         }
-        public int NumberCalculator2()
+
+        private void PerformACalculation()
         {
-            PerformACalculation();
-            return answer;
+            ListOfNumbers5();
         }
     }
 }
